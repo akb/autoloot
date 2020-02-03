@@ -14,10 +14,9 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 UNIQUE_TAG = ' ' + str(datetime.date.today()) + ' ' + ''.join(random.choice(string.ascii_uppercase) for _ in range(6))
 
-
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1vgM-OwsR3GJ19zv1CVfr6rIJn25yuCWYXKj_0r_X95E'
-LC_DUMP_LOCATION = 'lc_dump_1_28.csv'
+LC_DUMP_LOCATION = 'loot_dump_2_2_2020.csv'
 MC_PRIORITY_TAB = 'mc!A2:C'
 BWL_PRIORITY_TAB = 'bwl!A2:C'
 RAIDERS_TAB = 'raiders!A2:E'
@@ -88,8 +87,7 @@ def read_raiders(sheet):
             rank = int(row[4])
         raiders[name] = {"tags":tags, "loot":loot, "join_timestamp":join_timestamp, "rank":rank}
     return raiders
-        
-        
+              
 def read_item_priority(sheet, tab):
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
                                 range=tab).execute()
@@ -139,8 +137,7 @@ def add_tab(sheet, tab_name):
          }]
      }
     response = sheet.batchUpdate(spreadsheetId=SPREADSHEET_ID,body=body).execute()
-    
-    
+        
 def read_lc_dump(items):
     file = open(LC_DUMP_LOCATION)
     loot_history = []
@@ -212,9 +209,7 @@ def format_priority_queues(priority, queues, raiders):
         queue = create_queue(QUEUE_GROUP_MAP[queue_name], priority, queues, raiders)
         queue.insert(0, queue_name)
         output_queues.append(queue)
-    return output_queues
-    
-                
+    return output_queues                
 
 def write_tab(sheet, tab_name, values, majorDimension='ROWS'):
     add_tab(sheet, tab_name)
