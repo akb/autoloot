@@ -89,9 +89,7 @@ def read_raiders(sheet):
     return raiders
               
 def read_item_priority(sheet, tab):
-    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
-                                range=tab).execute()
-                                
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=tab).execute()
     items = {}                        
     for row in result.get('values', []):
         name = row[0]
