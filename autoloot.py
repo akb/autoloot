@@ -16,7 +16,7 @@ UNIQUE_TAG = ' ' + str(datetime.date.today()) + ' ' + ''.join(random.choice(stri
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1vgM-OwsR3GJ19zv1CVfr6rIJn25yuCWYXKj_0r_X95E'
-LC_DUMP_LOCATION = 'loot_dump_2_2_2020.csv'
+LC_DUMP_LOCATION = 'loot_dump_3_1_2020.csv'
 MC_PRIORITY_TAB = 'mc!A2:C'
 BWL_PRIORITY_TAB = 'bwl!A2:C'
 RAIDERS_TAB = 'raiders!A2:E'
@@ -145,9 +145,20 @@ def read_lc_dump(items):
         spt = line.split(",")
         name = spt[0][:-6]
         timestamp = parse_timestamp(spt[1],spt[2])
-        item_name = spt[4][1:-1]
-        response = spt[7]
-        if not timestamp or response not in RESPONSE_TO_QUEUE_MAP:
+        item_name = spt[4]
+        spt_index = 4
+        
+        # Deal with commas in item names
+        if (item_name.startswith('"')):
+            while(not item_name.endswith('"')):
+                spt_index+=1
+                item_name += ',' + spt[spt_index]
+            item_name = item_name[2:-2]
+        response = spt[spt_index+3]
+        
+        if not timestamp:
+            continue
+        if response not in RESPONSE_TO_QUEUE_MAP:
             continue
         if item_name not in items:
             continue
@@ -237,13 +248,13 @@ def main():
     minor_queues = format_priority_queues(1, queues, raiders)
     offspec_queues = format_priority_queues(2, queues, raiders)
 
-    write_tab(sheet, 'mc matches' + UNIQUE_TAG, mc_matches)
-    write_tab(sheet, 'bwl matches' + UNIQUE_TAG, bwl_matches)
-    write_tab(sheet, 'master queues' + UNIQUE_TAG, queues, 'COLUMNS')
-    write_tab(sheet, 'tier queues' + UNIQUE_TAG, tier_queues, 'COLUMNS')
-    write_tab(sheet, 'major upgrade queues' + UNIQUE_TAG, major_queues, 'COLUMNS')
-    write_tab(sheet, 'minor queues' + UNIQUE_TAG, minor_queues, 'COLUMNS')
-    write_tab(sheet, 'offspec queues' + UNIQUE_TAG, offspec_queues, 'COLUMNS')
+    #write_tab(sheet, 'mc matches' + UNIQUE_TAG, mc_matches)
+    #write_tab(sheet, 'bwl matches' + UNIQUE_TAG, bwl_matches)
+    #write_tab(sheet, 'master queues' + UNIQUE_TAG, queues, 'COLUMNS')
+    #write_tab(sheet, 'tier queues' + UNIQUE_TAG, tier_queues, 'COLUMNS')
+    #write_tab(sheet, 'major upgrade queues' + UNIQUE_TAG, major_queues, 'COLUMNS')
+    #write_tab(sheet, 'minor queues' + UNIQUE_TAG, minor_queues, 'COLUMNS')
+    #write_tab(sheet, 'offspec queues' + UNIQUE_TAG, offspec_queues, 'COLUMNS')
     
 if __name__ == '__main__':
     main()
