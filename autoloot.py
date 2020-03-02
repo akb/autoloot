@@ -248,13 +248,13 @@ def main():
     minor_queues = format_priority_queues(1, queues, raiders)
     offspec_queues = format_priority_queues(2, queues, raiders)
 
-    #write_tab(sheet, 'mc matches' + UNIQUE_TAG, mc_matches)
-    #write_tab(sheet, 'bwl matches' + UNIQUE_TAG, bwl_matches)
-    #write_tab(sheet, 'master queues' + UNIQUE_TAG, queues, 'COLUMNS')
-    #write_tab(sheet, 'tier queues' + UNIQUE_TAG, tier_queues, 'COLUMNS')
-    #write_tab(sheet, 'major upgrade queues' + UNIQUE_TAG, major_queues, 'COLUMNS')
-    #write_tab(sheet, 'minor queues' + UNIQUE_TAG, minor_queues, 'COLUMNS')
-    #write_tab(sheet, 'offspec queues' + UNIQUE_TAG, offspec_queues, 'COLUMNS')
+    write_tab(sheet, 'mc matches' + UNIQUE_TAG, mc_matches)
+    write_tab(sheet, 'bwl matches' + UNIQUE_TAG, bwl_matches)
+    write_tab(sheet, 'master queues' + UNIQUE_TAG, queues, 'COLUMNS')
+    write_tab(sheet, 'tier queues' + UNIQUE_TAG, tier_queues, 'COLUMNS')
+    write_tab(sheet, 'major upgrade queues' + UNIQUE_TAG, major_queues, 'COLUMNS')
+    write_tab(sheet, 'minor queues' + UNIQUE_TAG, minor_queues, 'COLUMNS')
+    write_tab(sheet, 'offspec queues' + UNIQUE_TAG, offspec_queues, 'COLUMNS')
     
 if __name__ == '__main__':
     main()
